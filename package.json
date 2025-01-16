@@ -2,12 +2,13 @@
   "name": "photo-fiesta-admin",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --no-error-on-unmatched-pattern --fix",
-    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss}\" && stylelint --fix \"src/**/*.{css,less,scss,sass,sss}\"",
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss}",
     "lint-staged": "lint-staged",
     "pre-push": "pnpm run build",
     "prepare": "husky install"
@@ -16,31 +17,36 @@
     "*.{js,jsx,ts,tsx}": [
       "prettier --write",
       "eslint --fix"
-    ],
-    "*.{css,less,scss,sass,sss}": [
-      "prettier --write",
-      "stylelint --fix"
     ]
   },
   "dependencies": {
     "next": "15.1.4",
+    "prettier": "^3.4.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@eslint/js": "^9.18.0",
     "@it-incubator/eslint-config": "^1.0.3",
     "@it-incubator/prettier-config": "^0.1.2",
     "@it-incubator/stylelint-config": "^2.0.0",
+    "@next/eslint-plugin-next": "^15.1.4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@typescript-eslint/eslint-plugin": "^8.20.0",
+    "@typescript-eslint/parser": "^8.20.0",
     "eslint": "^9",
     "eslint-config-next": "15.1.4",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-refresh": "^0.4.18",
+    "globals": "^15.14.0",
     "husky": "^8.0.0",
     "lint-staged": "^15.3.0",
     "postcss": "^8",
-    "stylelint": "^16.13.2",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }
