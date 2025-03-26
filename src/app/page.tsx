@@ -1,5 +1,5 @@
 'use client'
-import { Button } from '@photo-fiesta/ui-lib'
+import { Button, Card, Input } from '@photo-fiesta/ui-lib'
 
 export default function Home() {
   return (
@@ -11,6 +11,8 @@ export default function Home() {
       <Button variant={'secondary'}>Button</Button>
       <Button variant={'outlined'}>Button</Button>
       <Button>Button</Button>
+      <Input></Input>
+      <Card className={'w-[50px] h-[50px]'}></Card>
     </div>
   )
 }
