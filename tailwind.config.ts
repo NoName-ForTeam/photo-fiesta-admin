@@ -8,6 +8,9 @@ export default {
   ],
   theme: {
     extend: {
+      height: {
+        header: '60px',
+      },
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
