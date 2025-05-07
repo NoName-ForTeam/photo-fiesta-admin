@@ -35,22 +35,27 @@ export const Header = forwardRef<ElementRef<'div'>, HeaderProps>(
     // } as const
 
     return (
-      <div
-        className="p-6 flex items-center justify-between max-w-[1280px] h-header px-[64px] py-[12px]
+      <div className="w-full border-b border-gray-700">
+        <div
+          className="mx-auto flex items-center justify-between max-w-[1280px] h-header px-[64px] py-[12px]
          mobile:px-[15px] after:content-[''] after:absolute after:right-[20px] after:left-[20px] after:bottom-0
-         after:h-px after:bg-dark-300 mobile:after:right-0 mobile:after:left-0 bg-d"
-        ref={ref}
-        {...rest}
-      >
-        <Link
-          className="no-underline text-xxl leading-l font-semibold
-             mobile:text-l mobile:leading-m mobile:font-bold"
-          href={ROUTES.USERS_LIST}
+         after:h-px mobile:after:right-0 mobile:after:left-0"
+          ref={ref}
+          {...rest}
         >
-          Photo Phiesta<span className="lowercase">SuperAdmin</span>
-        </Link>
-        <div className="flex gap-[45px] items-center mobile:gap-[12px]">
-          <LanguageSelect className="ml-5 flex gap-[100px] items-center min-w-[163px] min-h-[36px]" />
+          <Link
+            className="no-underline text-xxl leading-l font-semibold
+             mobile:text-l mobile:leading-m mobile:font-bold"
+            href={ROUTES.USERS_LIST}
+          >
+            Photo Phiesta
+            <span className="text-s font-extrabold">
+              <span className="font-extralight">Super</span>Admin
+            </span>
+          </Link>
+          <div className="flex gap-[45px] items-center mobile:gap-[12px]">
+            <LanguageSelect className="ml-5 flex gap-[100px] items-center min-w-[163px] min-h-[36px]" />
+          </div>
         </div>
       </div>
     )

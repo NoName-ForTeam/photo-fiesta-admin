@@ -5,9 +5,29 @@ export default {
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/widgets/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
+      keyframes: {
+        'shadow-pulse': {
+          '33%': {
+            background: '#ffffff',
+            boxShadow: '-44px 0 #397df6, 44px 0 #ffffff',
+          },
+          '66%': {
+            background: '#397df6',
+            boxShadow: '-44px 0 #ffffff, 44px 0 #ffffff',
+          },
+          '100%': {
+            background: '#ffffff',
+            boxShadow: '-44px 0 #ffffff, 44px 0 #397df6',
+          },
+        },
+      },
+      animation: {
+        'shadow-pulse': 'shadow-pulse 1.5s infinite',
+      },
       height: {
         header: '60px',
       },

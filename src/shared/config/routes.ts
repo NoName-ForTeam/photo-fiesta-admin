@@ -1,4 +1,5 @@
 export const ROUTES = {
+  LOGIN: '/auth/login',
   USERS_LIST: '/usersList',
   STATISTICS: '/statistics',
   PAYMENTS_LIST: '/paymentsList',

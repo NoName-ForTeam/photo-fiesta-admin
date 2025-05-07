@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  background-color: var(--dark-500);
-}
-
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -16,6 +12,7 @@
 body {
   margin: 0;
   padding: 0;
+  height: 100vh;
   color: var(--foreground);
   background: var(--dark-500);
   font-family: Arial, Helvetica, sans-serif;

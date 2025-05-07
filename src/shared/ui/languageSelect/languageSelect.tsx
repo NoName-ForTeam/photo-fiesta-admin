@@ -2,7 +2,7 @@
 
 import { FlagRussia, FlagUnitedKingdom } from '@/shared/assets'
 import { Select, SelectItem } from '@photo-fiesta/ui-lib'
-import { useRouter, usePathname, useSearchParams } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 
 /**
  * LanguageSelect component allows users to switch between languages.
@@ -18,8 +18,8 @@ import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 export const LanguageSelect = ({ className }: { className: string }) => {
   const router = useRouter()
   const pathname = usePathname()
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const searchParams = useSearchParams()
+   
+  //const searchParams = useSearchParams()
 
   const currentLocale =
     typeof window !== 'undefined' ? window.location.pathname.split('/')[1] : 'en'
@@ -36,17 +36,20 @@ export const LanguageSelect = ({ className }: { className: string }) => {
    *
    * @param {string} locale - The locale string to switch to ('ru' or 'en').
    */
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const onChangeLanguage = (locale: string) => {
-    // Меняем язык, перестраивая pathname
+    if (!pathname) return // <--- безопасная проверка
+
     const segments = pathname.split('/')
-    segments[1] = locale // предполагается, что локаль — это первая часть URL
+    segments[1] = locale
     const newPath = segments.join('/')
 
     router.push(newPath)
   }
 
   return (
-    <Select className={className} defaultValue={currentLocale} onValueChange={onChangeLanguage}>
+    <Select className={className} defaultValue={currentLocale} onValueChange={() => {}}>
       {sortedLanguages.map(({ flag, label, value }) => (
         <SelectItem key={value} value={value}>
           <div className="flex gap-[12px] items-center">
