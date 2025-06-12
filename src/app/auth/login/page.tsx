@@ -1,24 +1,43 @@
 'use client'
 
-import React from 'react'
 import { Button, Typography } from '@photo-fiesta/ui-lib'
-import { redirect } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { ROUTES } from '@/shared'
-
-const EMAIL = 'photophiesta@gmail.com'
-const PASSWORD = 'photoPhiestaTeam'
+import { FormEvent, useState } from 'react'
+import { useMutation } from '@apollo/client'
+import { LOGIN_ADMIN } from '@/lib/queries/loginAdmin'
 
 const Page = () => {
-  const [email, setEmail] = React.useState('')
-  const [password, setPassword] = React.useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [loginAdmin, { loading, error }] = useMutation(LOGIN_ADMIN)
+  const router = useRouter()
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    if (email === EMAIL && password === PASSWORD) {
-      // авторизовать (например, сохранить флаг в localStorage и редирект)
-      redirect(ROUTES.USERS_LIST)
-    } else {
-      alert('Invalid credentials')
+
+    try {
+      const { data } = await loginAdmin({
+        variables: {
+          email,
+          password,
+        },
+      })
+
+      if (data?.loginAdmin?.logged) {
+        // Авторизация успешна
+        // Можно сохранить факт авторизации в localStorage
+        localStorage.setItem('isAdminLoggedIn', 'true')
+
+        // Редирект на страницу пользователей
+        router.push(ROUTES.USERS_LIST)
+      } else {
+        // Сервер вернул logged: false
+        alert('Invalid credentials')
+      }
+    } catch (err) {
+      console.error('Login error:', err)
+      alert('Login failed. Please try again.')
     }
   }
 
@@ -28,13 +47,20 @@ const Page = () => {
         Sign in
       </Typography>
 
+      {loading && <p>Loading...</p>}
+      {error && (
+        <Typography className="mb-4 text-red-500" variant={'text14'}>
+          {error.message}
+        </Typography>
+      )}
+
       <form onSubmit={handleSubmit} className="flex flex-col text-light-900">
         <div className="mt-[37px] flex flex-col">
           <label htmlFor="email">Email</label>
           <input
             value={email}
             onChange={e => setEmail(e.target.value)}
-            placeholder="Epam@epam.com"
+            placeholder="admin@gmail.com"
             id="email"
             className="min-w-[330px] py-[6px] pl-[12px] bg-transparent border border-dark-100"
             type="email"
