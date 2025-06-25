@@ -5,7 +5,8 @@ import { useRouter } from 'next/navigation'
 import { ROUTES } from '@/shared'
 import { FormEvent, useState } from 'react'
 import { useMutation } from '@apollo/client'
-import { LOGIN_ADMIN } from '@/lib/queries/loginAdmin'
+import { LOGIN_ADMIN } from '@/lib/mutations/loginAdmin'
+import { client } from '@/lib/graphQL/apollo-client'
 
 const Page = () => {
   const [email, setEmail] = useState('')
@@ -24,15 +25,12 @@ const Page = () => {
         },
       })
 
-      if (data?.loginAdmin?.logged) {
-        // Авторизация успешна
-        // Можно сохранить факт авторизации в localStorage
-        localStorage.setItem('isAdminLoggedIn', 'true')
-
-        // Редирект на страницу пользователей
+      if (data.loginAdmin.logged) {
+        localStorage.setItem('adminEmail', email)
+        localStorage.setItem('adminPassword', password)
+        client.resetStore().then(() => router.push(ROUTES.USERS_LIST))
         router.push(ROUTES.USERS_LIST)
       } else {
-        // Сервер вернул logged: false
         alert('Invalid credentials')
       }
     } catch (err) {

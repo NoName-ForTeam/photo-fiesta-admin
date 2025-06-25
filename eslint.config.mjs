@@ -53,6 +53,21 @@ export default [
       react: {
         version: 'detect',
       },
+    }
+  },
+  {
+    files: ['*.config.ts', 'next.config.ts', 'tailwind.config.ts'],
+    languageOptions: {
+      parser: tsParser,
+      parserOptions: {
+        project: './tsconfig.json',
+        tsconfigRootDir: __dirname,
+        extraFileExtensions: ['.ts'],
+      },
+    },
+    rules: {
+      // например, отключим правило о React в TS-конфиге
+      'react/react-in-jsx-scope': 'off',
     },
   },
 ]
