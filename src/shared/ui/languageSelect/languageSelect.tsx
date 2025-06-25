@@ -3,6 +3,7 @@
 import { FlagRussia, FlagUnitedKingdom } from '@/shared/assets'
 import { Select, SelectItem } from '@photo-fiesta/ui-lib'
 import { useRouter, usePathname } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
 /**
  * LanguageSelect component allows users to switch between languages.
@@ -18,39 +19,40 @@ import { useRouter, usePathname } from 'next/navigation'
 export const LanguageSelect = ({ className }: { className: string }) => {
   const router = useRouter()
   const pathname = usePathname()
-   
-  //const searchParams = useSearchParams()
 
-  const currentLocale =
-    typeof window !== 'undefined' ? window.location.pathname.split('/')[1] : 'en'
+  const initial = typeof window !== 'undefined' ? window.location.pathname.split('/')[1] : 'en'
+
+  const [locale, setLocale] = useState<string>(initial)
+
+  useEffect(() => {
+    const curr = window.location.pathname.split('/')[1]
+    if (curr !== locale) setLocale(curr)
+  }, [locale])
 
   const languages = [
     { flag: <FlagUnitedKingdom className="w-[24px] h-[24px]" />, label: 'English', value: 'en' },
     { flag: <FlagRussia className="w-[24px] h-[24px]" />, label: 'Russian', value: 'ru' },
   ]
 
-  const sortedLanguages = currentLocale === 'en' ? languages : languages.reverse()
+  const sorted = locale === 'en' ? languages : [...languages].reverse()
 
   /**
    * Handles changing the current language by updating the locale in the router.
    *
-   * @param {string} locale - The locale string to switch to ('ru' or 'en').
+   * @param newLocale
    */
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const onChangeLanguage = (locale: string) => {
-    if (!pathname) return // <--- безопасная проверка
-
-    const segments = pathname.split('/')
-    segments[1] = locale
-    const newPath = segments.join('/')
-
-    router.push(newPath)
+  const onChangeLanguage = (newLocale: string) => {
+    setLocale(newLocale)
+    if (!pathname) return
+    const seg = pathname.split('/')
+    seg[1] = newLocale
+    router.push(seg.join('/'))
   }
 
   return (
-    <Select className={className} defaultValue={currentLocale} onValueChange={() => {}}>
-      {sortedLanguages.map(({ flag, label, value }) => (
+    <Select className={className} value={locale} onValueChange={onChangeLanguage}>
+      {sorted.map(({ flag, label, value }) => (
         <SelectItem key={value} value={value}>
           <div className="flex gap-[12px] items-center">
             {flag}

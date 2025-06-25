@@ -21,8 +21,10 @@
   },
   "dependencies": {
     "@apollo/client": "^3.13.8",
+    "@radix-ui/react-dialog": "^1.1.14",
     "clsx": "^2.1.1",
     "graphql": "^16.11.0",
+    "graphql-ws": "^6.0.5",
     "next": "15.1.4",
     "prettier": "^3.4.2",
     "react": "^19.0.0",

@@ -1,0 +1,10 @@
+{
+  "schema": {
+    "https://inctagram.work/api/v1/graphql": {
+      "headers": {
+        "authorization": "Basic YWRtaW5AZ21haWwuY29tOmFkbWlu"
+      }
+    }
+  },
+  "documents": ["src/**/*.{ts,tsx,js,jsx}"]
+}

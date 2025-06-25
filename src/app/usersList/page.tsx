@@ -1,11 +1,11 @@
-import React from 'react'
+'use client'
 
-const Page = () => {
+import { UsersTable } from '@/components'
+
+export default function Page() {
   return (
-    <div className="text-center">
-      <h1>USERS LIST</h1>
+    <div>
+      <UsersTable />
     </div>
   )
 }
-
-export default Page
